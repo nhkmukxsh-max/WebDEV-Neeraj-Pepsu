@@ -1,0 +1,577 @@
+/* ==========================================================================
+   CSS Variables & Base Reset (Mobile-First, Relative Units)
+   ========================================================================== */
+:root {
+  --color-primary: #0047ab;
+  --color-primary-dark: #003380;
+  --color-accent: #ff725e;
+  --color-accent-alt: #0ea5e9;
+  --color-bg: #ffffff;
+  --color-surface: #f8fafc;
+  --color-text: #1e293b;
+  --color-muted: #475569;
+  --color-border: #cbd5e1;
+
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --radius-sm: 0.4rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-full: 999vw;
+
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px; /* Base for rem scaling */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+  padding-bottom: 4.5rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 90%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+/* ==========================================================================
+   Keyframes & Animations
+   ========================================================================== */
+@keyframes roleColorShift {
+  0% {
+    color: var(--color-accent);
+  }
+  50% {
+    color: var(--color-primary);
+  }
+  100% {
+    color: var(--color-accent-alt);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeSlideUp 0.75s var(--transition-smooth) both;
+}
+
+/* ==========================================================================
+   Header (Flexbox)
+   ========================================================================== */
+.site-header {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding-block: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 0.25rem 1rem rgba(0, 71, 171, 0.15);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.logo:hover {
+  transform: scale(1.03);
+  opacity: 0.95;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.nav-links a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  position: relative;
+  padding-block: 0.25rem;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 0.14rem;
+  background-color: var(--color-accent);
+  transition: width var(--transition-smooth);
+}
+
+.nav-links a:hover {
+  color: #ffd5cf;
+  transform: translateY(-0.1rem);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Hero Section (Flexbox — Mobile-First: Stacked, Text Above Image)
+   ========================================================================== */
+.hero {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  padding-block: 3rem;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column-reverse; /* Text on top, image below on mobile */
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.hero-text {
+  text-align: left;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+}
+
+.animated-role {
+  display: block;
+  margin-top: 0.25rem;
+  animation: roleColorShift 4.5s ease-in-out infinite alternate;
+}
+
+.hero-subtitle {
+  margin-top: 1.15rem;
+  font-size: 1.05rem;
+  color: var(--color-muted);
+  max-width: 34rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.75rem;
+}
+
+.hero-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-ring {
+  width: min(68vw, 19rem);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  padding: 0.45rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.avatar-ring:hover {
+  transform: scale(1.03) rotate(1deg);
+  box-shadow: 0 1rem 2rem rgba(0, 71, 171, 0.18);
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   Buttons & Interactive Elements
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.75em 1.6em;
+  border-radius: var(--radius-sm);
+  border: 0.12rem solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 0.5rem 1.2rem rgba(0, 71, 171, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Sections & Typography Hierarchy
+   ========================================================================== */
+.section {
+  padding-block: 3.5rem;
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  margin-bottom: 1.35rem;
+}
+
+.about-copy {
+  font-size: 1rem;
+  color: var(--color-muted);
+  max-width: 65ch;
+}
+
+/* ==========================================================================
+   Skills Section (CSS Grid)
+   ========================================================================== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.skill-card {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  box-shadow: 0 0.35rem 1rem rgba(0, 71, 171, 0.14);
+  transition:
+    transform var(--transition-smooth),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-smooth);
+}
+
+.skill-card:hover {
+  transform: translateY(-0.35rem) scale(1.015);
+  background-color: var(--color-primary-dark);
+  box-shadow: 0 0.85rem 1.75rem rgba(0, 71, 171, 0.24);
+}
+
+.skill-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.skill-level {
+  font-size: 0.9rem;
+  color: #dbeafe;
+}
+
+/* ==========================================================================
+   Projects Section (CSS Grid)
+   ========================================================================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.project-card {
+  background-color: var(--color-bg);
+  border: 0.08rem solid #e2e8f0;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 0.35rem 1.2rem rgba(15, 23, 42, 0.05);
+  transition:
+    transform var(--transition-smooth),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-smooth);
+}
+
+.project-card:hover {
+  transform: translateY(-0.4rem);
+  border-color: var(--color-primary);
+  box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.1);
+}
+
+.project-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.project-desc {
+  font-size: 0.96rem;
+  color: var(--color-muted);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.project-tags span {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background-color: #eff6ff;
+  padding: 0.28em 0.7em;
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   Contact Section
+   ========================================================================== */
+.contact-form {
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+  background-color: var(--color-surface);
+  border: 0.08rem solid #e2e8f0;
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(15, 23, 42, 0.05);
+}
+
+.form-group {
+  margin-bottom: 1.15rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 0.1rem solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0, 71, 171, 0.15);
+}
+
+/* ==========================================================================
+   Footer & Back to Top Button
+   ========================================================================== */
+.site-footer {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding-block: 1.35rem;
+  margin-top: 2rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+.copyright {
+  font-size: 0.9rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.footer-links a {
+  font-size: 0.88rem;
+  color: #dbeafe;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--color-bg);
+  transform: translateY(-0.1rem);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 90;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0.4rem 1rem rgba(0, 71, 171, 0.25);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.back-to-top:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-0.2rem);
+}
+
+/* ==========================================================================
+   Media Queries — Tablet & Desktop (Mobile-First Progression)
+   ========================================================================== */
+@media (min-width: 48rem) {
+  /* ~768px Tablet */
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+@media (min-width: 64rem) {
+  /* ~1024px Desktop */
+  .hero-inner {
+    flex-direction: row; /* Text left, image right */
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  .hero-text {
+    flex: 1 1 55%;
+    width: auto;
+  }
+
+  .hero-media {
+    flex: 0 0 auto;
+    width: auto;
+    justify-content: flex-end;
+  }
+
+  .avatar-ring {
+    width: 21rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
